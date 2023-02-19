@@ -4,10 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 
 const homeRoutes: Routes = [
-  { path: "", component: HomeComponent },
-  {
-    path: "goblin-quest",
-    loadChildren: () => import("../goblin-quest/goblin-quest.module").then(m => m.GoblinQuestModule)
+  { path: "", component: HomeComponent,
+    children: [
+      {
+        path: "goblin-quest",
+        loadChildren: () => import("../goblin-quest/goblin-quest.module").then(m => m.GoblinQuestModule)
+      },
+    ]
   },
 ];
 

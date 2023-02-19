@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { HomeService } from 'src/app/services/home.service';
+import { MenuItem, MENU_ITEMS } from 'src/app/shared/models/home';
 
 @Component({
   selector: 'app-top-bar',
@@ -10,14 +10,11 @@ import { HomeService } from 'src/app/services/home.service';
 })
 export class TopBarComponent implements OnInit {
 
-  games$: Observable<any>;
 
-  constructor(private homeService: HomeService) {
-    this.games$ = this.homeService.getHomeSideMenu();
-  }
+  menuItems: Array<MenuItem> = MENU_ITEMS;
 
-  ngOnInit(): void {
-    
-  }
+  constructor(public homeService: HomeService) { }
+  
+  ngOnInit(): void { }
 
 }

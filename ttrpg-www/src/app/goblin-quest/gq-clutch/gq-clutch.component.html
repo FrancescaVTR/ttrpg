@@ -1,0 +1,15 @@
+<div class="my-3">
+    <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Scegli il Cespo</mat-label>
+        <mat-select [(ngModel)]="selectedClutch" name="clutch">
+          <mat-option value="clutch-1">Clutch 1</mat-option>
+          <mat-option value="clutch-2">Clutch 2</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div *ngIf="selectedClutch.length > 0">
+
+  <p> Selected clutch: {{selectedClutch}} </p>
+
+</div>
