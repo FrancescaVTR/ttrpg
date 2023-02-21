@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { GoblinQuestRoutingModule } from './goblin-quest-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/modules/material.module';
 
 import { GoblinQuestComponent } from './goblin-quest.component';
@@ -25,6 +25,7 @@ import { GqLoreComponent } from './gq-lore/gq-lore.component';
     CommonModule,
     GoblinQuestRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule
   ]
 })

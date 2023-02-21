@@ -1,15 +1,178 @@
-<div class="my-3">
-    <mat-form-field appearance="fill" class="w-100">
+<div *ngIf="savedClutches" class="my-3">
+    <mat-form-field *ngIf="savedClutches.length > 0" appearance="fill" class="w-100" [color]="'accent'">
         <mat-label>Scegli il Cespo</mat-label>
-        <mat-select [(ngModel)]="selectedClutch" name="clutch">
-          <mat-option value="clutch-1">Clutch 1</mat-option>
-          <mat-option value="clutch-2">Clutch 2</mat-option>
+        <mat-select [(ngModel)]="clutchSelection" name="clutch" (selectionChange)="onChangeSelectClutch($event.value)">
+          <mat-option value="clutch-0">Nuovo Cespo</mat-option>
+          <mat-option *ngFor="let clutch of savedClutches" value="clutch-{{clutch.id}}">
+            {{clutch.honorific}}
+          </mat-option>
         </mat-select>
     </mat-form-field>
 </div>
 
-<div *ngIf="selectedClutch.length > 0">
+<div class="row">
 
-  <p> Selected clutch: {{selectedClutch}} </p>
+  <div class="col-12 col-md-6">
+    
+    <form [formGroup]="clutchForm">
+
+      <mat-form-field appearance="outline" class="w-100" [color]="'accent'">
+        <mat-label for="honorific">Onorifico</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  id="honorific"
+                  formControlName="honorific"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100" [color]="'accent'">
+        <mat-label for="expertise">Abilità</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  id="expertise"
+                  formControlName="expertise"></textarea>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="w-100" [color]="'accent'">
+        <mat-label for="quirk">Stranezza</mat-label>
+        <textarea matInput  
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  id="quirk"
+                  formControlName="quirk"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100" [color]="'accent'">
+        <mat-label for="dream">Sogno</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  id="dream"
+                  formControlName="dream"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100" [color]="'accent'">
+        <mat-label for="heirloom">Cimelio</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  id="heirloom"
+                  formControlName="heirloom"></textarea>
+      </mat-form-field>
+
+    </form>
+
+  </div>
+
+  <div *ngIf="!isNewClutch" class="text-center col-12 col-md-6">
+    
+    <button *ngFor="let goblin of selectedClutch.goblins"
+      mat-mini-fab class="rounded mx-2 mb-4"
+      id="goblin-{{goblin.id}}"
+      [color]="getGoblinColor(goblin.id)"
+      (click)="getGoblin(goblin.id)">
+      <mat-icon>person</mat-icon>
+    </button>
+
+    <div *ngIf="selectedGoblin">
+
+      <form [formGroup]="goblinForm">
+        <div class="row">
+
+          <div class="col-8">
+            
+            <mat-form-field appearance="outline" class="w-100" [color]="'accent'">
+              <mat-label for="name">Nome</mat-label>
+              <textarea matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"
+                        id="name"
+                        formControlName="name"></textarea>
+            </mat-form-field>
+          
+          </div>
+
+          <div class="col-4">
+
+            <button mat-fab [color]="getGoblinHealth(1)" (click)="setGoblinHealth(1)">
+              <mat-icon fontSet="material-symbols-outlined">skull</mat-icon>
+            </button>
+
+          </div>
+
+          <div class="col-8">
+
+            <mat-form-field appearance="outline" class="w-100" [color]="'accent'">
+              <mat-label for="feature">Caratteristica</mat-label>
+              <textarea matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"
+                        id="feature"
+                        formControlName="feature"></textarea>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-4">
+
+            <button mat-fab [color]="getGoblinHealth(2)" (click)="setGoblinHealth(2)">
+              <mat-icon fontSet="material-symbols-outlined">skull</mat-icon>
+            </button>
+
+          </div>
+          
+          <div class="col-12">
+            <mat-form-field appearance="outline" class="w-100" [color]="'accent'">
+              <mat-label for="death">Morte</mat-label>
+              <textarea matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"
+                        id="death"
+                        formControlName="death"></textarea>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  
+  </div>
+
+  <div class="col-12 text-center mb-3">
+
+    <div *ngIf="isNewClutch; else modifyBtn">
+      <button mat-raised-button color="accent" [disabled]="isClutchFormInvalid(clutchForm.status)"
+              (click)="setNewClutch()">
+        <mat-icon>add_circle</mat-icon> Aggiungi Cespo
+      </button>
+    </div>
+
+    <ng-template #modifyBtn>
+      <div>
+        <button mat-raised-button color="warn" (click)="deleteClutch()">
+          <mat-icon fontSet="material-symbols-outlined">delete_outline</mat-icon> Elimina Cespo
+        </button>
+      </div>
+    </ng-template>
+    
+  </div>
 
 </div>

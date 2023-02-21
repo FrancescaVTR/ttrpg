@@ -24,12 +24,7 @@ const dbConfig: DBConfig  = {
       store: 'clutch',
       storeConfig: { keyPath: 'id', autoIncrement: true },
       storeSchema: [
-        { name: 'honorific', keypath: 'honorific', options: { unique: false } },
-        { name: 'expertise', keypath: 'expertise', options: { unique: false } },
-        { name: 'quirk', keypath: 'quirk', options: { unique: false } },
-        { name: 'dream', keypath: 'dream', options: { unique: false } },
-        { name: 'heirloom', keypath: 'heirloom', options: { unique: false } },
-        { name: 'goblins', keypath: 'goblins', options: { unique: false } }
+        { name: 'honorific', keypath: 'honorific', options: { unique: false } }
       ]
     }
   ],
